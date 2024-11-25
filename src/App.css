@@ -127,7 +127,6 @@ header {
       }
 
       textarea:focus {
-
         box-shadow: 1px 1px 10px var(--color-active);
       }
     }
@@ -201,6 +200,7 @@ header {
   width: 100%;
   display: flex;
   justify-content: space-around;
+  flex-wrap: wrap;
   gap: .5rem;
   align-items: center;
   background-color: var(--color-lighter);
