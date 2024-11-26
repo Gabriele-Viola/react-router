@@ -5,6 +5,7 @@ export default function FocusRicetta() {
     const navigate = useNavigate()
     const [ricetta, setRicetta] = useState(null)
     const [next, setNext] = useState(null)
+    const [prev, setPrev] = useState(null)
     const [ricette, setRicette] = useState(null)
     const [index, setIndex] = useState('')
     const { slug } = useParams()
@@ -24,7 +25,8 @@ export default function FocusRicetta() {
                     setRicetta(data.data.find(ricetta => ricetta.slug === slug))
                     setIndex(data.data.findIndex(ricetta => ricetta.slug === slug))
 
-                    setNext(data.data[index + 1].slug)
+                    setNext(data.data[index + 1]?.slug || null)
+                    setPrev(data.data[index - 1]?.slug || null)
 
                 })
                 .catch(err => {
@@ -42,7 +44,7 @@ export default function FocusRicetta() {
             {ricetta ? (
 
                 <div className="container">
-                    <Link to=''>prev</Link>
+                    <Link to={`/ricette/${prev}`}>prev</Link>
 
                     <div className="card">
                         <img src={`http://localhoste:3000/imgs/${ricetta.image}`} alt={ricetta.title} />
