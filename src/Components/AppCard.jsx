@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router";
 
 export default function AppCard({ ricetta, server, handleDeleteClick }) {
 
@@ -6,7 +7,9 @@ export default function AppCard({ ricetta, server, handleDeleteClick }) {
         <div className='card'>
             <h3>{ricetta.title}</h3>
             <div className="imagcont">
-                <img src={`${server}/imgs/${ricetta.image}`} alt="" />
+                <Link to={`/ricette/${ricetta.slug}`}>
+                    <img src={`${server}/imgs/${ricetta.image}`} alt="" />
+                </Link>
             </div>
             <div className='description'>{ricetta.content}</div>
             <div className='tags'>
@@ -14,7 +17,7 @@ export default function AppCard({ ricetta, server, handleDeleteClick }) {
                 {ricetta.tags.map((tag, index) => <div key={index} className='tag' >{tag}</div>)}
             </div>
             <div className="bottoncontain">
-                <button slug={ricetta.slug} onClick={handleDeleteClick}><i class="bi bi-trash-fill"></i></button>
+                <button slug={ricetta.slug} onClick={handleDeleteClick}><i className="bi bi-trash-fill"></i></button>
 
             </div>
         </div>
