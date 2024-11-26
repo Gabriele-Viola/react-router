@@ -9,7 +9,7 @@ export default function FocusRicetta() {
     const [ricette, setRicette] = useState(null)
     const [index, setIndex] = useState(null)
     const { slug } = useParams()
-    const [currentSlug, setCurrentSlug] = useState(slug)
+    // const [currentSlug, setCurrentSlug] = useState(slug)
     // const urlSlug = `http://localhoste:3000/ricette/${slug}`
     const url = 'http://localhoste:3000/ricette/'
     console.log(url);
@@ -20,20 +20,16 @@ export default function FocusRicetta() {
                 .then(res => res.json())
                 .then(data => {
                     console.log(data, slug);
-                    console.log(currentSlug);
 
-
-                    setRicetta(data.data.find(ricetta => ricetta.slug === currentSlug))
-                    setIndex(data.data.findIndex(ricetta => ricetta.slug === currentSlug))
-                    console.log(data.data.findIndex(ricetta => ricetta.slug === currentSlug));
+                    setRicetta(data.data.find(ricetta => ricetta.slug === slug))
+                    setIndex(data.data.findIndex(ricetta => ricetta.slug === slug))
+                    console.log(data.data.findIndex(ricetta => ricetta.slug === slug));
                     console.log(index);
 
-                    setNext(data.data[data.data.findIndex(ricetta => ricetta.slug === currentSlug) + 1]?.slug || null)
+                    setNext(data.data[data.data.findIndex(ricetta => ricetta.slug === slug) + 1]?.slug || null)
                     console.log(next);
 
-                    setPrev(data.data[data.data.findIndex(ricetta => ricetta.slug === currentSlug) - 1]?.slug || null)
-                    setCurrentSlug(slug)
-                    console.log(currentSlug);
+                    setPrev(data.data[data.data.findIndex(ricetta => ricetta.slug === slug) - 1]?.slug || null)
                     console.log(data.data[data.data.findIndex(ricetta => ricetta.slug === currentSlug) + 1]?.slug || null);
 
                 })
@@ -42,8 +38,9 @@ export default function FocusRicetta() {
 
                 })
 
-        }, [currentSlug])
+        }, [slug])
 
+    console.log(next);
 
 
     return (
