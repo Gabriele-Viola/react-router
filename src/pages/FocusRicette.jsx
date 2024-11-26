@@ -4,9 +4,12 @@ import { useEffect, useState } from "react"
 export default function FocusRicetta() {
     const navigate = useNavigate()
     const [ricetta, setRicetta] = useState(null)
+    const [ricette, setRicette] = useState({})
+    const [index, setIndex] = useState('')
     const { slug } = useParams()
-    const url = `http://localhoste:3000/ricette/${slug}`
-    console.log(url);
+    const urlSlug = `http://localhoste:3000/ricette/${slug}`
+    const url = 'http://localhoste:3000/ricette/'
+    console.log(urlSlug);
 
     useEffect(
         () => {
@@ -20,7 +23,13 @@ export default function FocusRicetta() {
                         navigate('/404')
 
                     } else {
-                        setRicetta(data.data)
+                        setRicette(data.data)
+                        console.log(data.data);
+                        console.log(ricette);
+
+                        setRicetta(ricette?.find(ricetta => ricetta.slug == slug))
+
+                        setIndex(ricette?.indexOf(ricetta))
                     }
 
                 })
@@ -28,7 +37,9 @@ export default function FocusRicetta() {
                     console.error(err);
 
                 })
-        }, [])
+        },
+        []
+    )
     return (
         <>
 
@@ -37,7 +48,7 @@ export default function FocusRicetta() {
                 <div className="container">
                     <div className="card">
                         <img src={`http://localhoste:3000/imgs/${ricetta.image}`} alt={ricetta.title} />
-                        <h3>{ricetta.title}</h3>
+                        <h3>{ricetta.title}{index}</h3>
                         <div className="description">
                             {ricetta.content}
                         </div>

@@ -1,4 +1,4 @@
-import AppForm from "./AppForm";
+import AppForm from "../Components/AppForm";
 
 export default function AddRicetta() {
     return (
