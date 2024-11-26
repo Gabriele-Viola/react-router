@@ -6,7 +6,7 @@ import Home from './pages/Home'
 import About from './pages/About'
 
 import DefaultLayout from './Components/DefaultLayout'
-import FocusRicetta from './pages/focusRicette'
+import FocusRicetta from './pages/FocusRicette'
 import AddRicetta from './pages/AddRicetta'
 
 function App() {

@@ -4,7 +4,7 @@ import { useEffect, useState } from "react"
 export default function FocusRicetta() {
     const navigate = useNavigate()
     const [ricetta, setRicetta] = useState(null)
-    const [ricette, setRicette] = useState({})
+    const [ricette, setRicette] = useState(null)
     const [index, setIndex] = useState('')
     const { slug } = useParams()
     const urlSlug = `http://localhoste:3000/ricette/${slug}`
@@ -23,23 +23,20 @@ export default function FocusRicetta() {
                         navigate('/404')
 
                     } else {
-                        setRicette(data.data)
-                        console.log(data.data);
-                        console.log(ricette);
+                        const allRicette = data.data
+                        setRicette(allRicette)
 
-                        setRicetta(ricette?.find(ricetta => ricetta.slug == slug))
-
-                        setIndex(ricette?.indexOf(ricetta))
                     }
-
+                    const singleRicetta = ricette.find(ricetta => ricetta.slug == slug)
+                    setRicetta(singleRicetta)
+                    const indx = ricette.indexOf(ricetta)
+                    setIndex(indx)
                 })
                 .catch(err => {
                     console.error(err);
 
                 })
-        },
-        []
-    )
+        }, [])
     return (
         <>
 
