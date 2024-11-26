@@ -7,8 +7,9 @@ export default function FocusRicetta() {
     const [next, setNext] = useState(null)
     const [prev, setPrev] = useState(null)
     const [ricette, setRicette] = useState(null)
-    const [index, setIndex] = useState('')
+    const [index, setIndex] = useState(null)
     const { slug } = useParams()
+    const [currentSlug, setCurrentSlug] = useState(slug)
     // const urlSlug = `http://localhoste:3000/ricette/${slug}`
     const url = 'http://localhoste:3000/ricette/'
     console.log(url);
@@ -19,14 +20,21 @@ export default function FocusRicetta() {
                 .then(res => res.json())
                 .then(data => {
                     console.log(data, slug);
-                    console.log(data.data[2]);
+                    console.log(currentSlug);
 
 
-                    setRicetta(data.data.find(ricetta => ricetta.slug === slug))
-                    setIndex(data.data.findIndex(ricetta => ricetta.slug === slug))
+                    setRicetta(data.data.find(ricetta => ricetta.slug === currentSlug))
+                    setIndex(data.data.findIndex(ricetta => ricetta.slug === currentSlug))
+                    console.log(data.data.findIndex(ricetta => ricetta.slug === currentSlug));
+                    console.log(index);
 
-                    setNext(data.data[index + 1]?.slug || null)
-                    setPrev(data.data[index - 1]?.slug || null)
+                    setNext(data.data[data.data.findIndex(ricetta => ricetta.slug === currentSlug) + 1]?.slug || null)
+                    console.log(next);
+
+                    setPrev(data.data[data.data.findIndex(ricetta => ricetta.slug === currentSlug) - 1]?.slug || null)
+                    setCurrentSlug(slug)
+                    console.log(currentSlug);
+                    console.log(data.data[data.data.findIndex(ricetta => ricetta.slug === currentSlug) + 1]?.slug || null);
 
                 })
                 .catch(err => {
@@ -34,7 +42,7 @@ export default function FocusRicetta() {
 
                 })
 
-        }, [])
+        }, [currentSlug])
 
 
 
@@ -53,7 +61,7 @@ export default function FocusRicetta() {
                             {ricetta.content}
                         </div>
                         <div className='tags'>
-                            {ricetta.tags.map((tag, index) => <div key={index} className='tag' >{tag}</div>)}
+                            {ricetta.tags.map((tag, i) => <div key={i} className='tag' >{tag}</div>)}
                         </div>
                     </div>
                     <Link to={`/ricette/${next}`}>next</Link>
