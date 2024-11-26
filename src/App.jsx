@@ -7,6 +7,7 @@ import About from './pages/About'
 
 import DefaultLayout from './Components/DefaultLayout'
 import FocusRicetta from './pages/focusRicette'
+import AddRicetta from './Components/AddRicetta'
 
 function App() {
 
@@ -23,6 +24,7 @@ function App() {
             <Route path='/ricette'>
               <Route index element={<Ricette />}></Route>
               <Route path=':slug' element={<FocusRicetta />} />
+              <Route path='addricetta' element={<AddRicetta />} />
 
 
 
